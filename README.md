@@ -14,3 +14,33 @@ The RISC-V Instruction Set Architecture (ISA) is a language used to talk to comp
 
 ### SoC Design & OpenLANE
 
+#### Components of opensource digital ASIC design
+The design of digital Application Specific Integrated Circuit (ASIC) requires three enablers or elements - Resistor Transistor Logic Intellectual Property (RTL IPs), Electronic Design Automation (EDA) Tools and Process Design Kit (PDK) data.
+
+![ASIC](https://user-images.githubusercontent.com/86701156/124005001-35a32a80-d9f6-11eb-8fcc-0917ad337699.PNG)
+- Opensource RTL Designs: github, librecores, opencores
+- Opensource EDA tools: QFlow, OpenROAD, OpenLANE
+- Opensource PDK data: Google Skywater130 PDK
+
+The ASIC flow objective is to convert RTL design to GDSII format used for final layout. The flow is essentially a software also known as automated PnR (Place & route).
+
+#### Simplified RTL2GDS Flow
+![RTL2GDS flow](https://user-images.githubusercontent.com/86701156/124006238-a139c780-d9f7-11eb-8da9-6069b055fbe0.PNG)
+- Synthesis: RTL Converted to gate level netlist using standard cell libraries (SCL)
+- Floor & Power Planning: Planning of silicon area to ensure robust power distribution
+- Placement: Placing cells on floorplan rows aligned with sites
+  - Global Placement: for optimal position of cells
+  - Detailed Placement: for legal positions
+- Routing: Valid patterns for wires
+- Signoff: Physical (DRC, LVS) and Timing verifications (STA)
+
+#### OpenLANE ASIC Flow
+![openlane asic flow](https://user-images.githubusercontent.com/86701156/124007394-f62a0d80-d9f8-11eb-9d46-7cc885c0eff6.PNG)
+
+
+
+
+
+
+
+
