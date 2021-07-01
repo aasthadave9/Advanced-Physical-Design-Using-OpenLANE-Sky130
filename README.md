@@ -4,7 +4,20 @@
 
 ## Table of Contents
 1. [About](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#about)
-2. [Day1: Inception of Opensource EDA](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#Day1: Inception of Opensource EDA, OpenLANE and Sky130 PDK)
+2. [Day1: Inception of Opensource EDA](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#day1-inception-of-opensource-eda-openlane-and-sky130-pdk)
+   -[How to Talk to computers?](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#how-to-talk-to-computers)
+   - [SOC Design & OpenLANE](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#soc-design--openlane)
+     -[Components of opensource digital ASIC design](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#components-of-opensource-digital-asic-design)
+     -[Simplified RTL2GDS Flow](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#simplified-rtl2gds-flow)
+     -[OpenLANE ASIC Flow](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#openlane-asic-flow)
+   - [Opensource EDA tools](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#opensource-eda-tools)
+     -[OpenLANE Files](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#openlane-files)
+     -[Invoking OpenLANE](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#invoking-openlane)
+     -[Design Preparation Step](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#design-preparation-step)
+     -[Review of files & Synthesis step](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#design-preparation-step#review-of-files-&-synthesis-step)
+     -[Characterization of synthesis results](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#characterization-of-synthesis-results)
+
+
 ## About
 This project documents learnings from the Advanced Physical Design Workshop using OpenLANE/Sky130 conducted by VLSI System Design. OpenLANE is an opensource tool or flow used for opensource tape-outs. The OpenLANE flow comprises a variety of tools such as Yosys, ABC, OpenSTA, Fault, OpenROAD app, Netgen and Magic which are used to harden chips and macros, i.e. generate final GDSII from the design RTL. The primary goal of OpenLANE is to produce clean GDSII with no human intervention. OpenLNE has been tuned to function for the Google-Skywater130 Open Process Design Kit.
 
@@ -38,7 +51,7 @@ The ASIC flow objective is to convert RTL design to GDSII format used for final 
 
 #### OpenLANE ASIC Flow
 ![openlane asic flow](https://user-images.githubusercontent.com/86701156/124007394-f62a0d80-d9f8-11eb-9d46-7cc885c0eff6.PNG)
-
+### Opensource EDA tools
 #### OpenLANE Files
 ![lab1](https://user-images.githubusercontent.com/86701156/124007834-633da300-d9f9-11eb-8b32-9c1624019f29.PNG)
 ![lab2](https://user-images.githubusercontent.com/86701156/124007858-69338400-d9f9-11eb-9e98-cec32e28b01f.PNG)
@@ -49,11 +62,13 @@ Openlane can be invoked using docker command followed by opening an interactive 
 
 ![lab4](https://user-images.githubusercontent.com/86701156/124007900-75b7dc80-d9f9-11eb-83d9-b8998859afb0.PNG)
 
+ #### Design Preparation Step
  Various packages are initialized followed by preparation of the picorv32a design.
  
 ![lab5](https://user-images.githubusercontent.com/86701156/124008828-7dc44c00-d9fa-11eb-989e-1f699bc97572.PNG)
 ![lab6](https://user-images.githubusercontent.com/86701156/124009124-d7c51180-d9fa-11eb-92b1-4171ead9b2d7.PNG)
 
+#### Review of files & Synthesis step
 A "runs" folder is generated within the picorv32a folder.
 
 ![lab7](https://user-images.githubusercontent.com/86701156/124009377-270b4200-d9fb-11eb-957f-4f73c5baf8dc.PNG)
