@@ -16,7 +16,7 @@
      - [Design Preparation Step](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#design-preparation-step)
      - [Review of files & Synthesis step](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#design-preparation-step#review-of-files-&-synthesis-step)
      - [Characterization of synthesis results](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#characterization-of-synthesis-results)
-
+3. [Day2: Floorplanning and library cells](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#day2-floorplanning-and-library-cells)
 
 ## About
 This project documents learnings from the Advanced Physical Design Workshop using OpenLANE/Sky130 conducted by VLSI System Design. OpenLANE is an opensource tool or flow used for opensource tape-outs. The OpenLANE flow comprises a variety of tools such as Yosys, ABC, OpenSTA, Fault, OpenROAD app, Netgen and Magic which are used to harden chips and macros, i.e. generate final GDSII from the design RTL. The primary goal of OpenLANE is to produce clean GDSII with no human intervention. OpenLNE has been tuned to function for the Google-Skywater130 Open Process Design Kit.
@@ -112,6 +112,7 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 ![lab19](https://user-images.githubusercontent.com/86701156/124061967-7da16c00-da4d-11eb-8bf0-bf18b11e612c.PNG)![lab20](https://user-images.githubusercontent.com/86701156/124062667-ba219780-da4e-11eb-938e-88fc3e2997cb.PNG)
 
+## Day2: Floorplanning and library cells
 
 
 
