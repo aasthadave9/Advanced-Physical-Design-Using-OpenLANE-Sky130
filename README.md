@@ -77,13 +77,25 @@ The yosys and ABC tools are utilised to convert RTL to gate level netlist
 
 ![lab15](https://user-images.githubusercontent.com/86701156/124010081-fed01300-d9fb-11eb-844e-7056cbadf592.PNG)
 
-Calcuation of Flop Ratio:
-Flop ratio = Number of D Flip flops divided by Total Number of cells. Hence given:
-dfxtp_4 = 1613,
-Number of cells = 18036,
-Therefore, Flop ratio = 1613/18036 ~ 0.8943
+**Calcuation of Flop Ratio:**
+Flop ratio equals the Number of D Flip flops divided by Total Number of cells. 
+
+![lab16](https://user-images.githubusercontent.com/86701156/124060928-9c9efe80-da4b-11eb-9b4a-353390683bfa.PNG) ![lab17](https://user-images.githubusercontent.com/86701156/124060933-9f99ef00-da4b-11eb-887f-ddd54e269afa.PNG)
+
+dfxtp_4 ~ 1613,
+Number of cells ~ 18036,
+Therefore, Flop ratio ~ 1613/18036 ~ 0.8943
 
 *Note: The OpenLANE github repository can be accessed [here](https://github.com/The-OpenROAD-Project/OpenLane)*
+
+#### Characterization of synthesis results
+We may check the success of the synthesis step by checking the synthesis folder for the synthesised netlist file (.v file)
+![lab18](https://user-images.githubusercontent.com/86701156/124061491-8e051700-da4c-11eb-9212-d26b4ca25595.PNG)
+
+The synthesis statistics report can be accessed within the reports directory. It is usually the last yosys file since files are listed chronologically by date of modification
+
+![lab19](https://user-images.githubusercontent.com/86701156/124061967-7da16c00-da4d-11eb-8bf0-bf18b11e612c.PNG)![lab20](https://user-images.githubusercontent.com/86701156/124062667-ba219780-da4e-11eb-938e-88fc3e2997cb.PNG)
+
 
 
 
