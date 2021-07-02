@@ -93,14 +93,14 @@ The yosys and ABC tools are utilised to convert RTL to gate level netlist
 
 ![lab15](https://user-images.githubusercontent.com/86701156/124010081-fed01300-d9fb-11eb-844e-7056cbadf592.PNG)
 
-**Calcuation of Flop Ratio:**
+Calcuation of Flop Ratio:
 Flop ratio equals the Number of D Flip flops divided by Total Number of cells. 
 
 ![lab16](https://user-images.githubusercontent.com/86701156/124060928-9c9efe80-da4b-11eb-9b4a-353390683bfa.PNG) ![lab17](https://user-images.githubusercontent.com/86701156/124060933-9f99ef00-da4b-11eb-887f-ddd54e269afa.PNG)
 
-dfxtp_4 ~ 1613,
-Number of cells ~ 18036,
-Therefore, Flop ratio ~ 1613/18036 ~ 0.8943
+dfxtp_4 = 1613,
+Number of cells = 14876,
+Therefore, Flop ratio = 1613/14876 = 0.1084 = 10.84%
 
 *Note: The OpenLANE github repository can be accessed [here](https://github.com/The-OpenROAD-Project/OpenLane)*
 
