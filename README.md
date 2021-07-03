@@ -114,6 +114,48 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 ## Day2: Floorplanning and library cells
 
+### Floorplanning considerations
+
+#### Utilization Factor & Aspect Ratio  
+
+#### Pre-placed cells
+
+#### Decoupling capacitors
+
+#### Power Planning
+
+#### Pin Placement
+
+#### Floorplan run on OpenLANE & view in Magic
+
+### Placement 
+
+#### Placement Optimization
+
+#### Placement run on OpenLANE & view in Magic
+
+### Standard Cell Design Flow
+
+### Standard Cell Characterization Flow
+
+### Timing Parameter Definitions
+
+## Day3: Design library cell
+
+### SPICE Deck creation & Simulation
+
+### CMOS inverter Switching Threshold Vm
+
+### 16 Mask CMOS Fabrication
+
+### Inverter Standard cell Layout & SPICE extraction
+
+### Inverter Standard cell characterization
+
+### Magic Features & DRC rules
+
+
+
 
 
 
