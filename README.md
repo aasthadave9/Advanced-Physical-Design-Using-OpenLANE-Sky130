@@ -17,11 +17,25 @@
      - [Review of files & Synthesis step](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#design-preparation-step#review-of-files-&-synthesis-step)
      - [Characterization of synthesis results](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#characterization-of-synthesis-results)
 3. [Day2: Floorplanning and library cells](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#day2-floorplanning-and-library-cells)
+   - [Floorplanning considerations](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#floorplanning-considerations)
+     - [Utilization Factor & Aspect Ratio](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#utilization-factor--aspect-ratio)
+     - [Pre-placed cells](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#pre-placed-cells)
+     - [Decoupling capacitors](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#decoupling-capacitors)
+     - [Power Planning](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#power-planning)
+     - [Pin Placement](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#pin-placement)
+     - [Floorplan run on OpenLANE & view in Magic](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#floorplan-run-on-openlane--view-in-magic)
+   - [Placement](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#placement)
+     - [Placement Optimization](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#placement-optimization)
+     - [Placement run on OpenLANE & view in Magic](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#placement-run-on-openlane--view-in-magic)
+   - [Standard Cell Design Flow](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#standard-cell-design-flow)
+   - [Standard Cell Characterization Flow](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#standard-cell-characterization-flow)
+   - [Timing Parameter Definitions](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#timing-parameter-definitions)
+   
 
 ## About
 This project documents learnings from the Advanced Physical Design Workshop using OpenLANE/Sky130 conducted by VLSI System Design. OpenLANE is an opensource tool or flow used for opensource tape-outs. The OpenLANE flow comprises a variety of tools such as Yosys, ABC, OpenSTA, Fault, OpenROAD app, Netgen and Magic which are used to harden chips and macros, i.e. generate final GDSII from the design RTL. The primary goal of OpenLANE is to produce clean GDSII with no human intervention. OpenLNE has been tuned to function for the Google-Skywater130 Open Process Design Kit.
 
-## Day1: Inception of Opensource EDA
+## Day 1: Inception of Opensource EDA
 
 ### How to talk to computers?
 The RISC-V Instruction Set Architecture (ISA) is a language used to talk to computers whose hardware is based on RISC-V core. If a user wishes to run a certain application software on a computer, its corresponding C/C++/Java program must be converted into instructions by the compliler. The ouput of the compiler is hardware dependent. These instructions go as inputs to the assembler which outputs binary language that the hardware logic in the chip layout can make sense of. According the the bits received, the digital logic consisting of gates performs the function required by the user of the application software.
@@ -112,7 +126,7 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 ![lab19](https://user-images.githubusercontent.com/86701156/124061967-7da16c00-da4d-11eb-8bf0-bf18b11e612c.PNG)![lab20](https://user-images.githubusercontent.com/86701156/124062667-ba219780-da4e-11eb-938e-88fc3e2997cb.PNG)
 
-## Day2: Floorplanning and library cells
+## Day 2: Floorplanning and library cells
 
 ### Floorplanning considerations
 
@@ -140,7 +154,7 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 ### Timing Parameter Definitions
 
-## Day3: Design library cell
+## Day 3: Design library cell
 
 ### SPICE Deck creation & Simulation
 
