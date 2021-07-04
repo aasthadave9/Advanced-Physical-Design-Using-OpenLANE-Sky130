@@ -173,9 +173,15 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 Two parameters are of importance when it comes to floorplanning namely, Utilisation Factor and Aspect Ratio. They are defined as follows:
 
-```Utilisation Factor =  Area occupied by netlist/ Total area of core``` 
+```
+Utilisation Factor =  Area occupied by netlist/ Total area of core
 
-```Aspect Ratio = Height/ Width```
+```
+
+```
+Aspect Ratio = Height/ Width
+
+```
                                   
 A Utilisation Factor of 1 signifies 100% utilisation leaving no space for extra cells such as buffer. However, practically, the Utilisation Factor is 0.5-0.6. Likewise, an Aspect ratio of 1 implies that the chip is square shaped. Any value other than 1 implies rectanglular chip.
 
@@ -216,32 +222,40 @@ Floorplan envrionment variables or switches:
 *Note:* Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the files
  
  To run the picorv32a floorplan in openLANE:
- ```run_floorplan```
+ ```
+ run_floorplan
+ 
+ ```
  
  ![floorplan run step](https://user-images.githubusercontent.com/86701156/124388819-2c6dd280-dd02-11eb-81b5-fb9d0c7f9141.PNG)
 
 Post the floorplan run, a .def file will have been created within the ```results/floorplan``` directory. We may review floorplan files by checking the ```floorplan.tcl```. The system defaults will have been overriden by switches set in ```conifg.tcl``` and further overriden by switches set in ```sky130A_sky130_fd_sc_hd_config.tcl```.
  
 To view the floorplan, Magic is invoked after moving to the ```results/floorplan``` directory:
-```magic -T /home/aastha/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &```
+```
+magic -T /home/aastha/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
 
-![magic layout](https://user-images.githubusercontent.com/86701156/124388970-cafa3380-dd02-11eb-86ca-64739139683d.PNG)
+```
+
+      ![magic layout](https://user-images.githubusercontent.com/86701156/124388970-cafa3380-dd02-11eb-86ca-64739139683d.PNG)
  
- One can zoom into Magic layout by selecting an area with left and right mouse clcik followed by pressing "z" key. Here, equidistant input pins (FP_IO_MODE = 1) can be viewed:
+One can zoom into Magic layout by selecting an area with left and right mouse clcik followed by pressing "z" key. Here, equidistant input pins (FP_IO_MODE = 1) can be viewed:
  
- ![equidistant input ports](https://user-images.githubusercontent.com/86701156/124389036-05fc6700-dd03-11eb-930f-4452652a0a09.PNG)
+   ![equidistant input ports](https://user-images.githubusercontent.com/86701156/124389036-05fc6700-dd03-11eb-930f-4452652a0a09.PNG)
+ 
+Various components can be identified by using the ```what``` command in tkcon window after making a selection on the component:
+
+   ![selected input port - metal layer2](https://user-images.githubusercontent.com/86701156/124389094-4c51c600-dd03-11eb-927b-56a129e5f08b.PNG)
 
 Zooming in also provides a view of decaps present in picorv32a chip:
 
-![decap-decoupling capacitor](https://user-images.githubusercontent.com/86701156/124389047-1876a080-dd03-11eb-90bc-ae28b2fea211.PNG)
+   ![decap-decoupling capacitor](https://user-images.githubusercontent.com/86701156/124389047-1876a080-dd03-11eb-90bc-ae28b2fea211.PNG)
 
 The standard cell can be found at the bottom left corner:
 
-![standard cell at left bottom corner](https://user-images.githubusercontent.com/86701156/124389059-275d5300-dd03-11eb-9327-116abf31cd6c.PNG)
+   ![standard cell at left bottom corner](https://user-images.githubusercontent.com/86701156/124389059-275d5300-dd03-11eb-9327-116abf31cd6c.PNG)
 
-Various components can be identified by using the ```what``` command in tkcon window after making a selection on the component:
 
-![selected input port - metal layer2](https://user-images.githubusercontent.com/86701156/124389094-4c51c600-dd03-11eb-927b-56a129e5f08b.PNG)
 
 ### Placement 
 
