@@ -84,7 +84,7 @@ Openlane can be invoked using docker command followed by opening an interactive 
 
 ![lab4](https://user-images.githubusercontent.com/86701156/124007900-75b7dc80-d9f9-11eb-83d9-b8998859afb0.PNG)
 
- #### Design Preparation Step
+#### Design Preparation Step
  Various packages are initialized followed by preparation of the picorv32a design.
  
 ![lab5](https://user-images.githubusercontent.com/86701156/124008828-7dc44c00-d9fa-11eb-989e-1f699bc97572.PNG)
@@ -176,8 +176,27 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 ### Magic Features & DRC rules
 
+## Day 4: Timing Analysis & CTS
 
+### Standard Cell LEF generation
 
+### Integrating custom cell in OpenLANE
+
+### Post-synthesis timing analysis
+
+### Clock Tree Synthesis
+
+## Day 5: Final steps in RTL2GDS
+
+### Power Distribution Network generation
+
+### Routing 
+
+## Future Scope
+
+## Acknowledgements
+- [Nickson Jose](https://github.com/nickson-jose/vsdstdcelldesign)
+- [Kunal Ghosh](https://github.com/kunalg123)
 
 
 
