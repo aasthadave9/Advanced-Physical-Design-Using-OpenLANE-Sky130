@@ -82,6 +82,13 @@ The ASIC flow objective is to convert RTL design to GDSII format used for final 
 #### OpenLANE ASIC Flow
 ![openlane asic flow](https://user-images.githubusercontent.com/86701156/124007394-f62a0d80-d9f8-11eb-9d46-7cc885c0eff6.PNG)
 ### Opensource EDA tools
+OpenLANE utilises a variety of opensource tools in the execution of the ASIC flow:
+Task | Tool/s
+------------ | -------------
+RTL Synthesis & Technology Mapping | [yosys](https://github.com/YosysHQ/yosys), abc
+Floorplan & PDN | init_fp, ioPlacer, pdn and tapcell
+
+
 #### OpenLANE Files
 ![lab1](https://user-images.githubusercontent.com/86701156/124007834-633da300-d9f9-11eb-8b32-9c1624019f29.PNG)
 ![lab2](https://user-images.githubusercontent.com/86701156/124007858-69338400-d9f9-11eb-9e98-cec32e28b01f.PNG)
@@ -202,9 +209,11 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 ## Future Scope
 
-## Acknowledgements
+## References 
+- [The OpenROAD Project](https://github.com/The-OpenROAD-Project/OpenLane)
 - [Nickson Jose](https://github.com/nickson-jose/vsdstdcelldesign)
 - [Kunal Ghosh](https://github.com/kunalg123)
+ 
 
 
 
