@@ -115,7 +115,7 @@ flow.tcl is a script that specifies details for openLANE flow.
 
 ```
 docker
-.\flow.tcl -interactive
+./flow.tcl -interactive
 package require openlane 0.9
 ```
 ![lab4](https://user-images.githubusercontent.com/86701156/124007900-75b7dc80-d9f9-11eb-83d9-b8998859afb0.PNG)
