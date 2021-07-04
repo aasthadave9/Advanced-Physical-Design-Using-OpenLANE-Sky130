@@ -155,13 +155,18 @@ The yosys and ABC tools are utilised to convert RTL to gate level netlist
 ![lab15](https://user-images.githubusercontent.com/86701156/124010081-fed01300-d9fb-11eb-844e-7056cbadf592.PNG)
 
 Calcuation of Flop Ratio:
-Flop ratio equals the Number of D Flip flops divided by Total Number of cells. 
+```
+Flop ratio = Number of D Flip flops 
+             ______________________
+             Total Number of cells
+```
 
 ![lab16](https://user-images.githubusercontent.com/86701156/124060928-9c9efe80-da4b-11eb-9b4a-353390683bfa.PNG) ![lab17](https://user-images.githubusercontent.com/86701156/124060933-9f99ef00-da4b-11eb-887f-ddd54e269afa.PNG)
-
+```
 dfxtp_4 = 1613,
 Number of cells = 14876,
-Therefore, Flop ratio = 1613/14876 = 0.1084 = 10.84%
+Flop ratio = 1613/14876 = 0.1084 = 10.84%
+```
 
 #### Characterization of synthesis results
 We may check the success of the synthesis step by checking the synthesis folder for the synthesised netlist file (.v file)
@@ -180,12 +185,16 @@ The synthesis statistics report can be accessed within the reports directory. It
 Two parameters are of importance when it comes to floorplanning namely, Utilisation Factor and Aspect Ratio. They are defined as follows:
 
 ```
-Utilisation Factor =  Area occupied by netlist/ Total area of core
+Utilisation Factor =  Area occupied by netlist
+                     __________________________
+                        Total area of core
 
 ```
 
 ```
-Aspect Ratio = Height/ Width
+Aspect Ratio =  Height
+               ________
+                Width
 
 ```
                                   
