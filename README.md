@@ -310,13 +310,11 @@ A typical standard cell characterization flow includes the following steps:
 
 The opensource software called GUNA can be used for characterization. Steps 1-8 are fed into the GUNA software which generates timing, noise and power models.
 
-![GUNA](https://user-images.githubusercontent.com/86701156/124394075-541d6480-dd1b-11eb-9bae-38c1b0b8a453.PNG)
-
-
 ### Timing Parameter Definitions
 
-slew_low_rise_thr  | 20% value
+Timing defintion | Value
 ------------ | -------------
+slew_low_rise_thr  | 20% value
 slew_high_rise_thr |  80% value
 slew_low_fall_thr | 20% value
 slew_high_fall_thr | 80% value
@@ -325,21 +323,52 @@ in_fall_thr | 50% value
 out_rise_thr | 50% value
 out_fall_thr | 50% value
 
-```rise delay =  time(out_fall_thr) - time(in_rise_thr)```
-```Fall transition time: time(slew_high_fall_thr) - time(slew_low_fall_thr)```
-```Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)```
+```
+rise delay =  time(out_fall_thr) - time(in_rise_thr)
+
+Fall transition time: time(slew_high_fall_thr) - time(slew_low_fall_thr)
+
+Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)
+```
 
 A poor choice of threshold points leads to neative delay value. Therefore a correct choice of thresholds is very important
 
 ## Day 3: Design library cell
 
+OpenLANE allows users to make changes to environment variables on the fly. For instance, if we wish to change the pin placement from equidistant to some other style of placement we may do the following in the openLANE flow:
+```
+set ::env(FP_IO_MODE) 2
+```
+
 ### SPICE Deck creation & Simulation
+
+A SPICE deck includes information about the following:
+1. Model description
+2. Netlist description
+3. Component connectivity
+4. Component values
+5. Capacitance load
+6. Nodes
+7. Simulation type and parameters
+8. Libraries included
 
 ### CMOS inverter Switching Threshold Vm
 
+Thw sitching threshold of a CMOS inverter is the point on the transfer characteristic where Vin equals Vout (=Vm). At this point both PMOS and NOMOS are in ON state which gives rise to a leakage current
+
 ### 16 Mask CMOS Fabrication
+The 16-mask CMOS process consists of the following steps:
+1. Selection of subtrate
+2. Creating active region for transistors
+3. N-well and P-well formation
+4. Formation of gate terminal
+5. LDD (lightly doped drain) formation
+6. Source & drain formation
+7. Local interconnect formation
+8. Higher level metal formation
 
 ### Inverter Standard cell Layout & SPICE extraction
+
 
 ### Inverter Standard cell characterization
 
