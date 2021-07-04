@@ -87,6 +87,15 @@ Task | Tool/s
 ------------ | -------------
 RTL Synthesis & Technology Mapping | [yosys](https://github.com/YosysHQ/yosys), abc
 Floorplan & PDN | init_fp, ioPlacer, pdn and tapcell
+Placement | RePLace, Resizer, OpenPhySyn & OpenDP
+Static Timing Analysis | [OpenSTA](https://github.com/The-OpenROAD-Project/OpenSTA)
+Clock Tree Synthesis | [TritonCTS](https://github.com/The-OpenROAD-Project/OpenLane)
+Routing | FastRoute and [TritonRoute](https://github.com/The-OpenROAD-Project/TritonRoute) 
+SPEF Extraction | [SPEF-Extractor](https://github.com/HanyMoussa/SPEF_EXTRACTOR)
+DRC Checks, GDSII Streaming out | [Magic](https://github.com/RTimothyEdwards/magic), [Klayout](https://github.com/KLayout/klayout)
+LVS check | [Netgen](https://github.com/RTimothyEdwards/netgen)
+Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
+
 
 
 #### OpenLANE Files
