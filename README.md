@@ -113,11 +113,18 @@ The openLANE file structure looks something like this:
 Openlane can be invoked using docker command followed by opening an interactive session.
 flow.tcl is a script that specifies details for openLANE flow.
 
+```
+docker
+.\flow.tcl -interactive
+package require openlane 0.9
+```
 ![lab4](https://user-images.githubusercontent.com/86701156/124007900-75b7dc80-d9f9-11eb-83d9-b8998859afb0.PNG)
 
 #### Design Preparation Step
  Various packages are initialized followed by preparation of the picorv32a design.
- 
+ ```
+ prep -design picorv32a
+ ```
 ![lab5](https://user-images.githubusercontent.com/86701156/124008828-7dc44c00-d9fa-11eb-989e-1f699bc97572.PNG)
 ![lab6](https://user-images.githubusercontent.com/86701156/124009124-d7c51180-d9fa-11eb-92b1-4171ead9b2d7.PNG)
 
