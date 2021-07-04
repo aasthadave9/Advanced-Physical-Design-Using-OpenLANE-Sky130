@@ -97,7 +97,6 @@ LVS check | [Netgen](https://github.com/RTimothyEdwards/netgen)
 Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
 
 
-
 #### OpenLANE Files
 
 The openLANE file structure looks something like this:
@@ -219,14 +218,14 @@ Floorplan envrionment variables or switches:
 4. ```FP_IO_MODE``` - defines pin configurations (1 = equidistant/0 = not equidistant)
 5. ```FP_CORE_VMETAL``` - vertical metal layer
 6. ```FP_CORE_HMETAL``` - horizontal metal layer
-*Note:* Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the files
+
+***Note: Usually, vertical metal layer and horizontal metal layer values will be 1 more than that specified in the files***
  
  To run the picorv32a floorplan in openLANE:
  ```
  run_floorplan
  
  ```
- 
  ![floorplan run step](https://user-images.githubusercontent.com/86701156/124388819-2c6dd280-dd02-11eb-81b5-fb9d0c7f9141.PNG)
 
 Post the floorplan run, a .def file will have been created within the ```results/floorplan``` directory. We may review floorplan files by checking the ```floorplan.tcl```. The system defaults will have been overriden by switches set in ```conifg.tcl``` and further overriden by switches set in ```sky130A_sky130_fd_sc_hd_config.tcl```.
@@ -237,7 +236,7 @@ magic -T /home/aastha/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.
 
 ```
 
-      ![magic layout](https://user-images.githubusercontent.com/86701156/124388970-cafa3380-dd02-11eb-86ca-64739139683d.PNG)
+   ![magic layout](https://user-images.githubusercontent.com/86701156/124388970-cafa3380-dd02-11eb-86ca-64739139683d.PNG)
  
 One can zoom into Magic layout by selecting an area with left and right mouse clcik followed by pressing "z" key. Here, equidistant input pins (FP_IO_MODE = 1) can be viewed:
  
@@ -256,18 +255,81 @@ The standard cell can be found at the bottom left corner:
    ![standard cell at left bottom corner](https://user-images.githubusercontent.com/86701156/124389059-275d5300-dd03-11eb-9327-116abf31cd6c.PNG)
 
 
-
 ### Placement 
 
 #### Placement Optimization
 
+The next step in the OpenLANE ASIC flow is placement. The synthesized netlist is the be placed on the floorplan. Placement is perfomed in 2 stages:
+
+1. Global Placement: It finds optimal position for all cells which may not be legal and cells may overlap. Optimization is done through reduction of half parameter wire length
+2. Detailed Placement: It alters the position of cells post global placement so as to legalise them
+
+Legalisation of cells is important from timing point of view. 
+
 #### Placement run on OpenLANE & view in Magic
+
+Congestion aware placement using RePIAce:
+```
+run_placement
+
+```
+The objective of placement is the convergence of overflow value. If overflow value progressively reduces during the placement run it implies that the design will converge and placement will be successful. Post placement, the design can be viewed on magic within ```results/placement``` directory:
+
+```
+magic -T /home/aastha/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+
+```
+![layout after placement](https://user-images.githubusercontent.com/86701156/124393474-54683080-dd18-11eb-95c1-31d75e514623.PNG)
+
+Zoomed-in views of the standard cell placement:
+
+![zoomed in view of std cell placement](https://user-images.githubusercontent.com/86701156/124393477-57632100-dd18-11eb-8983-64301d0a6cc3.PNG)
+![zoomed in view of std cell placement2](https://user-images.githubusercontent.com/86701156/124393481-5af6a800-dd18-11eb-91b2-a52e072dfb0d.PNG)
+
+***Note: Power distribution network generation is usually a part of the floorplan step. However, in the openLANE flow, floorplan does not generate PDN. The steps are - floorplan, placement CTS and then PDN***
+
 
 ### Standard Cell Design Flow
 
+Standard cell design flow involves the following:
+1. Inputs: PDKs, DRC & LVS rules, SPICE models, libraries, user-defined specifications 
+2. Design steps: Circuit design, Layout design (Art of layout Euler's path and stick diagram), Extraction of parasitics, Characterization (timing, noise, power)
+3. Outputs: CDL (circuit description language), LEF, GDSII, extracted SPICE netlist (.cir), timing, noise and power .lib files
+
 ### Standard Cell Characterization Flow
 
+A typical standard cell characterization flow includes the following steps:
+1. Read in the models and tech files
+2. Read extracted spice netlist
+3. Recognise behaviour of the cell
+4. Read the subcircuits
+5. Attach power sources
+6. Apply stimulus to characterization setup
+7. Provide necessary output capacitance loads
+8. Provide necessary simulation commands
+
+The opensource software called GUNA can be used for characterization. Steps 1-8 are fed into the GUNA software which generates timing, noise and power models.
+
+![GUNA](https://user-images.githubusercontent.com/86701156/124394075-541d6480-dd1b-11eb-9bae-38c1b0b8a453.PNG)
+
+
 ### Timing Parameter Definitions
+
+slew_low_rise_thr  | 20% value
+------------ | -------------
+slew_high_rise_thr |  80% value
+slew_low_fall_thr | 20% value
+slew_high_fall_thr | 80% value
+in_rise_thr | 50% value
+in_fall_thr | 50% value
+out_rise_thr | 50% value
+out_fall_thr | 50% value
+
+```rise delay =  time(out_fall_thr) - time(in_rise_thr)```
+```Fall transition time: time(slew_high_fall_thr) - time(slew_low_fall_thr)```
+```Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)```
+
+A poor choice of threshold points leads to neative delay value. Therefore a correct choice of thresholds is very important
 
 ## Day 3: Design library cell
 
