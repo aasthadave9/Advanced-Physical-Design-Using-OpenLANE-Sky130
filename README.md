@@ -173,13 +173,13 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 Two parameters are of importance when it comes to floorplanning namely, Utilisation Factor and Aspect Ratio. They are defined as follows:
 
-`Utilisation Factor =  Area occupied by netlist 
-                       ________________________
-                         Total area of core`
+`Utilisation Factor =  Area occupied by netlist` 
+                       `________________________`
+                         `Total area of core`
 
-`Aspect Ratio =          Height
-                       __________
-                         Width `
+`Aspect Ratio =          Height`
+                       `__________`
+                         `Width `
 A Utilisation Factor of 1 signifies 100% utilisation leaving no space for extra cells such as buffer. However, practically, the Utilisation Factor is 0.5-0.6. Likewise, an Aspect ratio of 1 implies that the chip is square shaped. Any value other than 1 implies rectanglular chip.
 
 #### Pre-placed cells
