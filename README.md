@@ -99,12 +99,20 @@ Circuit validity checker | [CVC](https://github.com/d-m-bailey/cvc)
 
 
 #### OpenLANE Files
+
+The openLANE file structure looks something like this:
+
 ![lab1](https://user-images.githubusercontent.com/86701156/124007834-633da300-d9f9-11eb-8b32-9c1624019f29.PNG)
 ![lab2](https://user-images.githubusercontent.com/86701156/124007858-69338400-d9f9-11eb-9e98-cec32e28b01f.PNG)
 ![lab3](https://user-images.githubusercontent.com/86701156/124007881-6f296500-d9f9-11eb-87ff-a0a5ede3c07a.PNG)
 
+- skywater-pdk: contains PDK files provided by foundry
+- open_pdks: contains scripts to setup pdks for opensource tools 
+- sky130A: contains sky130 pdk files
+
 #### Invoking OpenLANE
 Openlane can be invoked using docker command followed by opening an interactive session.
+flow.tcl is a script that specifies details for openLANE flow.
 
 ![lab4](https://user-images.githubusercontent.com/86701156/124007900-75b7dc80-d9f9-11eb-83d9-b8998859afb0.PNG)
 
@@ -123,7 +131,7 @@ Since today's date is 30th June, a folder titled "30-06..." is created within th
 
 ![lab9](https://user-images.githubusercontent.com/86701156/124009563-63d73900-d9fb-11eb-8f37-fcdd43f46092.PNG)
 
-The merger file is created during the merging operation in the pircorv32a design preparation (it merges lef and techlef files)
+The merged file is created during the merging operation in the pircorv32a design preparation (it merges lef and techlef files)
 
 ![lab10](https://user-images.githubusercontent.com/86701156/124009626-75204580-d9fb-11eb-945f-48b1510d45f4.PNG)
 
@@ -131,7 +139,8 @@ Merged.lef looks something like this:
 
 ![lab11](https://user-images.githubusercontent.com/86701156/124009634-781b3600-d9fb-11eb-91ce-053c814592d0.PNG)
 
-Next, we run the synthesis of picorv32a design by using the *run_synthesis* command in the openlane interactive terminal:
+Next, we run the synthesis of picorv32a design in the openlane interactive terminal:
+`run_synthesis`
 
 ![lab14](https://user-images.githubusercontent.com/86701156/124010076-fd064f80-d9fb-11eb-87a1-d66b99de9cd2.PNG)
 
@@ -148,8 +157,6 @@ dfxtp_4 = 1613,
 Number of cells = 14876,
 Therefore, Flop ratio = 1613/14876 = 0.1084 = 10.84%
 
-*Note: The OpenLANE github repository can be accessed [here](https://github.com/The-OpenROAD-Project/OpenLane)*
-
 #### Characterization of synthesis results
 We may check the success of the synthesis step by checking the synthesis folder for the synthesised netlist file (.v file)
 ![lab18](https://user-images.githubusercontent.com/86701156/124061491-8e051700-da4c-11eb-9212-d26b4ca25595.PNG)
@@ -164,13 +171,32 @@ The synthesis statistics report can be accessed within the reports directory. It
 
 #### Utilization Factor & Aspect Ratio  
 
+Two parameters are of importance when it comes to floorplanning namely, Utilisation Factor and Aspect Ratio. They are defined as follows:
+
+`Utilisation Factor =  Area occupied by netlist 
+                       ________________________
+                         Total area of core`
+
+`Aspect Ratio =          Height
+                       __________
+                         Width `
+A Utilisation Factor of 1 signifies 100% utilisation leaving no space for extra cells such as buffer. However, practically, the Utilisation Factor is 0.5-0.6. Likewise, an Aspect ratio of 1 implies that the chip is square shaped. Any value other than 1 implies rectanglular chip.
+
 #### Pre-placed cells
+
+Once the Utilisation Factor and Aspect Ratio has been decided, the locations of pre-placed cells need to be defined. Pre-placed cells are IPs comprising large combinational logic which once placed maintain a fixed position. Since they are placed before placement and routing, the are known as pre-placed cells.
 
 #### Decoupling capacitors
 
+Pre-placed cells must then be surrounded with decoupling capacitors (decaps). The resistances and capacitances associated with long wire lengths can cause the power supply voltage to drop significantly before reaching the logic circuits. This can lead to the signal value entering into the undefined region, outside the noise margin range.  Decaps are huge capacitors charged to power supply voltage and placed close the logic circuit. Their role is to decouple the circuit from power supply by supplying the necessary amount of current to the circuit. They pervent crosstalk and enable local communication
+
 #### Power Planning
 
+Each block on the chip, however, cannot have its own decap unlike the pre-placed macros. Therefore a good power planning ensures that each block has its own VDD and VSS pads connected to the horizontal and vertical power and GND lines which form a power mesh.
+
 #### Pin Placement
+
+The netlist defines connectivity between logic gates. The place between the core and die is utilised for placing pins. The connectivity information coded in either VHDL or Verilog is used to determine the position of I/O pads of various pins. Then, logical placement blocking of pre-placed macros is performed so as to differentiate that area from that of the pin area.
 
 #### Floorplan run on OpenLANE & view in Magic
 
