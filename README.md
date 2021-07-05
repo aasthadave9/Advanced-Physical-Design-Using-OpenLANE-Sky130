@@ -679,7 +679,7 @@ run_routing
 
 ## Future Scope
 - Design of custom standard cells such as NAND, OR, clock buffers and integrating them in the openLANE flow.
-- Deatiled IP characterization for all corner models
+- Detailed IP characterization for all corner models
 
 ## References 
 - [The OpenROAD Project](https://github.com/The-OpenROAD-Project/OpenLane)
