@@ -470,9 +470,31 @@ The above timing parameters can be computed by noting down various values from t
 ```Cell fall delay = (4.07479 - 4.05) = 24.79ps```
 
 ### Magic Features & DRC rules
+The technology file is a setup file that declares layer types, colors, patterns, electrical connectivity, DRC, device extraction rules and rules to read LEF and DEF files.
+Magic layouts can be sourced from [opencircuitdesign.com](https://opencircuitdesign.com/) using the command:
+```
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+tar xfz drc_tests.tgz
+```
+![drc_tests folder contents](https://user-images.githubusercontent.com/86701156/124431653-3d642580-dd8e-11eb-9e89-3602269a39f8.PNG)
 
+The ```.magicrc``` loads the tech file required by the user. Since this file sets up the tech file, sky130.tech need not be mentioned in the command used to invoke Magic. Hecen Magic can be invoked more conveniently now:
+```
+magic -d XR
+```
 
+**DRC Errors**
+To analyse DRC errors, magic is invoked and the met3.mag file is opened either from the software as ```file-> open-> met3.mag``` or by running command in tkcon as ```magic -d XR met3```
+DRC errors can be found by selecting a component and typing: ```drc why``` in tkcon
 
+![drc error checking in magic](https://user-images.githubusercontent.com/86701156/124431912-a0ee5300-dd8e-11eb-8cca-b0cb8a114305.PNG)
+
+met3.6 is the name of a DRC rule. The descriptions of DRC rules can be found in the [SKY130 PDK’s documentation](https://skywater-pdk--136.org.readthedocs.build/en/136/rules.html)
+
+To check for vias in the metal3 layer, make a rectangluar selection in an empty space and paint it with the m3contact color from the color palette by clicking middle mouse button. The vias can be viewed by: ```cif see VIA2```
+![vias](https://user-images.githubusercontent.com/86701156/124432365-2c67e400-dd8f-11eb-8736-053ced3bf279.PNG)
+
+In this fashion, one can search for DRC errors, read up their descriptions and resolve them by editing the technology file.
 
 ## Day 4: Timing Analysis & CTS
 
