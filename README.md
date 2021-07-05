@@ -659,7 +659,7 @@ Routing typically uses up a lot of memory:
 
 At the end of routing, one may see a few DRC violations. In such cases, better routing stratgies may be emplyed, however, this compromises on time and memory. Once routing is completed, parasitic resistances and capacitances associated with routes come into picture. These parasitics can be extracted into a SPEF file. In newer openLANE versions, SPEF extraction is a part of routing run. Following this, post-route STA may be carried out.
 
-## Diferences from older OpenLANE versions
+## Differences from older OpenLANE versions
 - In the new version, FP_CORE_UTIL, FP_CORE_VMETAL and FP_CORE_HMETAL environment variables are missing in ```ioPlacer.log``` and ```config.tcl```. They need to be included in ```config.tcl``` file.
 - ```run_floorplan``` fails after the STA analysis in the new version. An alternate command can be used: ```init_floorplan```
 - SPEF extraction need not be externally performed in the new version. It has been integrated into the OpenLANE flow
