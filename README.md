@@ -616,7 +616,9 @@ read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
 set_propagated_clock (all_clocks)
 report_checks -path_delay min_max -format full_clock_expanded -digits 4
 ```
+
 Slack at the end of STA for typical corner:
+
 ![slack at end of sta via openroad - for typical corner](https://user-images.githubusercontent.com/86701156/124453238-ce45fb80-dda4-11eb-8b32-de78c261cc76.PNG)
 
 One may also check how the timing gets affected if clock buffer are replaced. Below, clkbuf_1 was replaced:
@@ -624,13 +626,59 @@ One may also check how the timing gets affected if clock buffer are replaced. Be
 
 ## Day 5: Final steps in RTL2GDS
 
-
-
 ### Power Distribution Network generation
 
+Unlike the general ASIC flow, Power Distribution Network generation is not a part of floorplan run in OpenLANE. PDN must be generated after CTS and post-CTS STA analyses:
+
+```
+gen_pdn
+```
+
+We can confirm the success of PDN by checking the current def environment variable: ``` echo $::env(CURRENT_DEF) ```
+
 ### Routing 
+OpenLANE uses the TritonRoute tool for routing. There are 2 stages of routing:
+1. Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool)
+2. Detailed routing: Finer grids and routing guides used to implement physical wiring (TritonRoute tool)
+Features of TritonRoute:
+1. Honouring pre-processed route guides
+2. Assumes that each net satisfies inter guide connectivity
+3. Uses MILP based panel routing scheme
+4. Intra-layer parallel and inter-layer sequential routing framework
+
+Running routing step in TritonRoute as part of openLANE flow:
+
+```
+run_routing
+```
+
+Routing typically uses up a lot of memory:
+![huge amount of memory used in detailed routing](https://user-images.githubusercontent.com/86701156/124459606-ed945700-ddab-11eb-83e1-7df005822489.PNG)
+
+
+At the end of routing, one may see a few DRC violations. In such cases, better routing stratgies may be emplyed, however, this compromises on time and memory. Once routing is completed, parasitic resistances and capacitances associated with routes come into picture. These parasitics can be extracted into a SPEF file. In newer openLANE versions, SPEF extraction is a part of routing run. Following this, post-route STA may be carried out.
+
+## Diferences from older OpenLANE versions
+- In the new version, FP_CORE_UTIL, FP_CORE_VMETAL and FP_CORE_HMETAL environment variables are missing in ```ioPlacer.log``` and ```config.tcl```. They need to be included in ```config.tcl``` file.
+- ```run_floorplan``` fails after the STA analysis in the new version. An alternate command can be used: ```init_floorplan```
+- SPEF extraction need not be externally performed in the new version. It has been integrated into the OpenLANE flow
+
+Note: In the new version following commands may be used for an error-free flow:
+
+```
+init_floorplan 
+place_io
+global_placement_or
+detailed_placement 
+tap_decap_or
+detailed_placement
+gen_pdn
+run_routing
+```
 
 ## Future Scope
+- Design of custom standard cells such as NAND, OR, clock buffers and integrating them in the openLANE flow.
+- Deatiled IP characterization for all corner models
 
 ## References 
 - [The OpenROAD Project](https://github.com/The-OpenROAD-Project/OpenLane)
