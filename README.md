@@ -398,10 +398,9 @@ The sky130_inv.mag file can then be invoked in Magic very easily:
 ```
 magic -T sky130A.tech sky130_inv.mag &
 ```
-![inverter magic layout](https://user-images.githubusercontent.com/86701156/124417795-9b394300-dd77-11eb-919e-81ddba365949.PNG)
+![inverter magic layout](https://user-images.githubusercontent.com/86701156/124417795-9b394300-dd77-11eb-919e-81ddba365949.PNG) ![inverter magic layout-locali layer](https://user-images.githubusercontent.com/86701156/124420625-7051ed80-dd7d-11eb-80c8-686ef59820cc.PNG)
 
-In Sky130 the first layer is called the local interconnect layer or Locali:
-![inverter magic layout-locali layer](https://user-images.githubusercontent.com/86701156/124420625-7051ed80-dd7d-11eb-80c8-686ef59820cc.PNG)
+In Sky130 the first layer is called the local interconnect layer or Locali as shown above.
 
 To verify whether the layout is that of CMOS inverter, verification of P-diffusiona nd N-diffusion regions with Polysilicon can be observed:
 ![verifying pdiff intersection with poly](https://user-images.githubusercontent.com/86701156/124420751-a4c5a980-dd7d-11eb-81df-df3a88eed34e.PNG)
