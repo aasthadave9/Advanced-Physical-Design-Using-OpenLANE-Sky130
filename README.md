@@ -407,13 +407,72 @@ To verify whether the layout is that of CMOS inverter, verification of P-diffusi
 
 Other verification steps are to check drain and source connections. The drains of both PMOS and NMOS must be connected to output port (here, Y) and the sources of both must be connected to power supply VDD (here, VPWR.
 
+**LEF or library exchange format:**
+A format that tells us about cell boundaries, VDD and GND lines. It contains no info about the logic of circuit and is also used to protect the IP.
 
+**SPICE extraction:**
+Within the Magic environment, following commands are used in tkcon to achieve .mag to .spice extraction:
+```
+extract all
+ext2spice cthresh 0 rethresh 0
+ext2spice
+```
+![extraction from magic to spice](https://user-images.githubusercontent.com/86701156/124428287-228fb200-dd8a-11eb-8b5c-2ecff24aa5ca.PNG)
 
+This generates the ```sky130_in.spice``` file as shown above. This SPICE deck is edited to include ```pshort.lib``` and ```nshort.lib``` which are the PMOS and NMOS libraries respectively. In addition, the minimum grid size of inverter is measured from the magic layout and incorporated into the deck as: ```.option scale=0.01u```. The model names in the MOSFET definitions are changed to ```pshort.model.0``` and ```nshort.model.0``` respectively for PMOS and NMOS. Finally voltage sources and simulation commands are defined as follows:
+```
+VDD VPWR 0 3.3V
+VSS VGND 0 0
+Va A VGND PUSLE(0V 3.3V 0 0.1ns 0.1 ns 2ns 4ns)
+.tran 1n 20n
+.control
+run 
+.endc
+.end
+```
+
+For simulation, ngspice is invoked in ther terminal:
+```
+ngspice sky130_inv.spice
+```
+The output "y" is to be plotted with "time" and swept over the input "a":
+```
+plot y vs time a
+```
+![ngspice sim result](https://user-images.githubusercontent.com/86701156/124429274-499ab380-dd8b-11eb-8e2f-d39bc21173b1.PNG)
+
+The waveform obtained is as shown:
+
+![inverter waveform](https://user-images.githubusercontent.com/86701156/124429304-561f0c00-dd8b-11eb-98fa-1fd7ab385e16.PNG)
+
+The spikes in the output at switching points is due to low capacitance loads. This can be taken care of by editing the spice deck to increase the load capacitance value.
 
 ### Inverter Standard cell characterization
 
+Four timing parameters are used to characterize the inverter standard cell:
+1. Rise transition: Time taken for the output to rise from 20% of max value to 80% of max value
+2. Fall transition- Time taken for the output to fall from 80% of max value to 20% of max value
+3. Cell rise delay = time(50% output rise) - time(50% input fall)
+4. Cell fall delay  = time(50% output fall) - time(50% input rise)
+
+The above timing parameters can be computed by noting down various values from the ngspice waveform.
+
+![rise time calc](https://user-images.githubusercontent.com/86701156/124429861-09880080-dd8c-11eb-83db-0183bf4d6c76.PNG) 
+```Rise transition = (2.23843 - 2.17935) = 59.08ps```
+
+![fall time calc](https://user-images.githubusercontent.com/86701156/124430314-a3e84400-dd8c-11eb-9759-753929e215ff.PNG)
+```Fall transition = (4.09291 - 4.05004) = 42.87ps```
+
+![cell rise delay calc](https://user-images.githubusercontent.com/86701156/124430430-cbd7a780-dd8c-11eb-8382-9a758ce9451b.PNG)
+```Cell rise delay = (2.20636 - 2.15) = 56.36ps```
+
+![cell fall delay calc](https://user-images.githubusercontent.com/86701156/124430661-0fcaac80-dd8d-11eb-8f32-1fda5750491a.PNG)
+```Cell fall delay = (4.07479 - 4.05) = 24.79ps```
 
 ### Magic Features & DRC rules
+
+
+
 
 ## Day 4: Timing Analysis & CTS
 
