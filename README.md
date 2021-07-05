@@ -188,14 +188,12 @@ Two parameters are of importance when it comes to floorplanning namely, Utilisat
 Utilisation Factor =  Area occupied by netlist
                      __________________________
                         Total area of core
-
 ```
 
 ```
 Aspect Ratio =  Height
                ________
                 Width
-
 ```
                                   
 A Utilisation Factor of 1 signifies 100% utilisation leaving no space for extra cells such as buffer. However, practically, the Utilisation Factor is 0.5-0.6. Likewise, an Aspect ratio of 1 implies that the chip is square shaped. Any value other than 1 implies rectanglular chip.
@@ -374,19 +372,36 @@ Thw sitching threshold of a CMOS inverter is the point on the transfer character
 
 ### 16 Mask CMOS Fabrication
 The 16-mask CMOS process consists of the following steps:
-1. Selection of subtrate
-2. Creating active region for transistors
-3. N-well and P-well formation
-4. Formation of gate terminal
-5. LDD (lightly doped drain) formation
-6. Source & drain formation
-7. Local interconnect formation
-8. Higher level metal formation
+1. Selection of subtrate: Secting the body/substrate material
+2. Creating active region for transistors: Isolation between active region pockets by SiO2 and Si3N4 deposition followed by photolithography and etching
+3. N-well and P-well formation: Ion implanation by Boron for P-well and by Phosphorous for N-well formation
+4. Formation of gate terminal: NMOS and PMOS gates formed by photolithography techniques
+5. LDD (lightly doped drain) formation: LDD formed to prevent hot electron effect
+6. Source & drain formation: Screen oxide added to avoid channelling during implants followed by Aresenic implantation and annealing
+7. Local interconnect formation: Removal of screen oxide by HF etching. Deposition of Ti for low resistant contacts
+8. Higher level metal formation: CMP for planarization followed by TiN and Tungsten deposition. Top SiN layer for chip protection
 
 ### Inverter Standard cell Layout & SPICE extraction
 
+The Magic layout of a CMOS inverter will be used so as to intergate the inverter with the picorv32a design. To do this, inverter magic file is sourced from [vsdstdcelldesign](https://github.com/nickson-jose/vsdstdcelldesign) by cloning it within the ```openlane_working_dir/openlane``` directory as follows:
+```
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+```
+This creates a vsdstdcelldesign named folder in the openlane directory. The repo's contents after cloning appear as follows:
+
+![git cloning nickston's repo - contents copied](https://user-images.githubusercontent.com/86701156/124417496-e99a1200-dd76-11eb-979e-261f4d068ca3.PNG)
+
+To invoke magic to view the ```sky130_inv.mag``` file, the sky130A.tech file must be included in the command along with its path. To ease up the complexity of this command, the tech file can be copied from the magic folder to the vsdstdcelldesign folder.
+![sky130A tech file copied into vsd folder](https://user-images.githubusercontent.com/86701156/124417749-7b098400-dd77-11eb-8e91-8d29088bafbd.PNG)
+
+The sky130_inv.mag file can then be invoked in Magic very easily:
+```
+magic -T sky130A.tech sky130_inv.mag &
+```
+![inverter magic layout](https://user-images.githubusercontent.com/86701156/124417795-9b394300-dd77-11eb-919e-81ddba365949.PNG)
 
 ### Inverter Standard cell characterization
+
 
 ### Magic Features & DRC rules
 
