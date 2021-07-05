@@ -499,17 +499,132 @@ In this fashion, one can search for DRC errors, read up their descriptions and r
 
 ## Day 4: Timing Analysis & CTS
 
+A requirement for ports as specified in ```tracks.info``` is that they should be at intersection of horizontal and vertical tracks. The CMOS Inverter ports A and Y are on li1 layer. It needs to be ensured that they're on the intersection of horizontal and vertical tracks. We access the tracks.info file for the pitch and direction information:
 
+![tracks info file for route info](https://user-images.githubusercontent.com/86701156/124445507-3e508380-dd9d-11eb-8313-b45244931a86.PNG)
 
+To ensure that ports lie on the intersection point, the grid spacing in Magic (tkcon) must be changed to the li1 X and li1 Y values. Convergence of grid and tracks can be achieved using the following command:
+```
+grid 0.46um 0.34um 0.23um 0.17um
+```
 ### Standard Cell LEF generation
+Before the CMOS Inverter standard cell LEF is extracted, the purpose of ports must be defined:
+Select port A in magic:
+```
+port class input
+port use signal
+```
+Select Y area
+```
+port class output
+port class signal
+```
+Select VPWR area
+```
+port class inout
+port use power
+```
+
+Select VGND area
+```
+port class inout
+port use ground
+```
+
+LEF extraction can be carried out in tkcon as follows:
+```
+lef write
+```
+This generates ```sky130_vsdinv.lef``` file.
 
 ### Integrating custom cell in OpenLANE
 
+In order to include the new standard cell in the synthesis, copy the sky130_vsdinv.lef file to the ```designs/picorv32a/src``` directory  
+Since abc maps the standard cell to a library abc there must be a library that defines the CMOS inverter. The ```sky130_fd_sc_hd_typical.lib``` file from ```vsdstdcelldesign/libs``` directory needs to be copied to the ```designs/picorv32a/src``` directory (Note: the slow and fast library files may also be copied).
+
+Next, ```config.tcl``` must be modified:
+```
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+```
+
+In order to integrate the standard cell in the OpenLANE flow, invoke openLANE as usual and carry out following steps:
+
+```
+prep -design picorv32a -tag 02-07_07-56 -overwrite
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+run_synthesis
+```
+During the synthesis run, several instances of the sky130_vsdinv cell can be observed:
+![vsdinv in run_synthesis step - success](https://user-images.githubusercontent.com/86701156/124448257-de0f1100-dd9f-11eb-8a2a-efcc418997da.PNG)
+![synthesis of std cell](https://user-images.githubusercontent.com/86701156/124448454-19a9db00-dda0-11eb-9a31-d44105a14738.PNG)
+
+Next floorplan is run, followed by placement:
+
+```
+init_floorplan
+run_placement
+```
+
+To check the layout invoke magic from the ```results/placement``` directory:
+
+```
+magic -T /home/aastha/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def
+```
+
+Since the custom standard cell has been plugged into the openLANE flow, it would be visible in the layout:
+![zoomed in layout - view of vsdinv std cell](https://user-images.githubusercontent.com/86701156/124449266-e6b41700-dda0-11eb-97e6-c27d031decf5.PNG)
+![expanded layout view of cmos inv](https://user-images.githubusercontent.com/86701156/124449276-e87dda80-dda0-11eb-9823-bcfe9bd536bc.PNG)
+
 ### Post-synthesis timing analysis
+
+Timing analysis is carried out outside the openLANE flow using OpenSTA tool. For this, a new file ```pre_sta.conf``` is created. This file would be reqiured to carry out the STA analysis. Invoke OpenSTA outside the openLANE flow as follows:
+```
+sta pre_sta.conf
+```
+![slack at the end of STA](https://user-images.githubusercontent.com/86701156/124452411-fbde7500-dda3-11eb-91f0-01fbc584e443.PNG)
+
+Since clock tree synthesis has not been performed yet, the analysis is with respect to ideal clocks and only setup time slack is taken into consideration. The slcak value is the difference between data required time and data arrival time. The worst slack value must be greater than or equal to zero. If a negative slack is obtained, following steps may be followed:
+1. Change synthesis strategy, synthesis buffering and synthesis sizing values 
+2. Review maximum fanout of cells and replace cells with high fanout
+
+![large fanout at net 11344 - affects delay](https://user-images.githubusercontent.com/86701156/124451312-e3ba2600-dda2-11eb-9b40-984fafc7f2c0.PNG)
+
 
 ### Clock Tree Synthesis
 
+The purpose of building a clock tree is enable the clock input to reach every element and to ensure a zero clock skew. H-tree is a common methodology followed in CTS.
+Before attempting a CTS run in TritonCTS tool, if the slack was attempted to be reduced in previous run, the netlist may have gotten modified by cell replacement techniques. Therefore, the verilog file needs to be modified using the ```write_verilog``` command. Then, the synthesis, floorplan and placement is run again. To run CTS use the below command:
+
+```
+run_cts
+```
+The CTS run adds clock buffers in therefore buffer delays come into picture and our analysis from here on deals with real clocks. Setup and hold time slacks may now be analysed in the post-CTS STA anlysis in OpenROAD within the openLANE flow:
+```
+openroad
+write_db pico_cts.db
+read_db pico_cts.db
+read_verilog /openLANE_flow/designs/picorv32a/runs/03-07_11-25/results/synthesis/picorv32a.synthesis_cts.v
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+link_design picorv32a
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+set_propagated_clock (all_clocks)
+report_checks -path_delay min_max -format full_clock_expanded -digits 4
+```
+Slack at the end of STA for typical corner:
+![slack at end of sta via openroad - for typical corner](https://user-images.githubusercontent.com/86701156/124453238-ce45fb80-dda4-11eb-8b32-de78c261cc76.PNG)
+
+One may also check how the timing gets affected if clock buffer are replaced. Below, clkbuf_1 was replaced:
+![altering clk buf_list to exclude buf_1 (assign2)](https://user-images.githubusercontent.com/86701156/124453733-49a7ad00-dda5-11eb-8039-dcb19372469b.PNG)
+
 ## Day 5: Final steps in RTL2GDS
+
+
 
 ### Power Distribution Network generation
 
