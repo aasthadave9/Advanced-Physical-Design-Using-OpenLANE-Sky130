@@ -45,7 +45,7 @@
 6. [Day 5: Final steps in RTL2GDS](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#day-5-final-steps-in-rtl2gds)
    - [Power Distribution Network generation](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#power-distribution-network-generation)
    - [Routing](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#routing)
-7. [Diferences from older OpenLANE versions](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#diferences-from-older-openlane-versions)
+7. [Differences from older OpenLANE versions](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#differences-from-older-openlane-versions)
 8. [Future Scope](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#future-scope)
 9. [Acknowledgements](https://github.com/aasthadave9/Advanced-Physical-Design-Using-OpenLANE-Sky130/blob/main/README.md#acknowledgements)
 
