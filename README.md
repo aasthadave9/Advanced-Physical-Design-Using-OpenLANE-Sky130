@@ -622,7 +622,7 @@ Slack at the end of STA for typical corner:
 
 ![slack at end of sta via openroad - for typical corner](https://user-images.githubusercontent.com/86701156/124453238-ce45fb80-dda4-11eb-8b32-de78c261cc76.PNG)
 
-One may also check how the timing gets affected if clock buffer are replaced. Below, clkbuf_1 was replaced:
+One may also check how the timing gets affected if clock buffers are replaced. Below, clkbuf_1 was replaced:
 ![altering clk buf_list to exclude buf_1 (assign2)](https://user-images.githubusercontent.com/86701156/124453733-49a7ad00-dda5-11eb-8039-dcb19372469b.PNG)
 
 ## Day 5: Final steps in RTL2GDS
@@ -657,7 +657,7 @@ Routing typically uses up a lot of memory:
 ![huge amount of memory used in detailed routing](https://user-images.githubusercontent.com/86701156/124459606-ed945700-ddab-11eb-83e1-7df005822489.PNG)
 
 
-At the end of routing, one may see a few DRC violations. In such cases, better routing stratgies may be emplyed, however, this compromises on time and memory. Once routing is completed, parasitic resistances and capacitances associated with routes come into picture. These parasitics can be extracted into a SPEF file. In newer openLANE versions, SPEF extraction is a part of routing run. Following this, post-route STA may be carried out.
+At the end of routing, one may see a few DRC violations. In such cases, better routing stratgies may be employed, however, this compromises on time and memory. Once routing is completed, parasitic resistances and capacitances associated with routes come into picture. These parasitics can be extracted into a SPEF file. In newer openLANE versions, SPEF extraction is a part of routing run. Following this, post-route STA may be carried out.
 
 ## Differences from older OpenLANE versions
 - In the new version, FP_CORE_UTIL, FP_CORE_VMETAL and FP_CORE_HMETAL environment variables are missing in ```ioPlacer.log``` and ```config.tcl```. They need to be included in ```config.tcl``` file.
