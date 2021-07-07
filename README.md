@@ -641,6 +641,7 @@ We can confirm the success of PDN by checking the current def environment variab
 OpenLANE uses the TritonRoute tool for routing. There are 2 stages of routing:
 1. Global routing: Routing region is divided into rectangle grids which are represented as course 3D routes (Fastroute tool)
 2. Detailed routing: Finer grids and routing guides used to implement physical wiring (TritonRoute tool)
+
 Features of TritonRoute:
 1. Honouring pre-processed route guides
 2. Assumes that each net satisfies inter guide connectivity
